@@ -15,11 +15,6 @@ public class javaFX extends Application {
 	
 	Stage window;
 	Scene scene1, scene2;
-	
-	public static void main(String [] args) {
-		
-		launch(args);
-	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -61,6 +56,11 @@ public class javaFX extends Application {
 		window.setScene(scene1);
 		window.show();
 		
+	}
+	
+	public static void main(String [] args) {
+		
+		launch(args);
 	}
 }
 
