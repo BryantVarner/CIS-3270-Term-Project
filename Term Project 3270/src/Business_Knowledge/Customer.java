@@ -19,7 +19,6 @@ public class Customer  {
 		
 	}
 	
-	
 	public String getFirstName() {
 		return firstName;
 	}
