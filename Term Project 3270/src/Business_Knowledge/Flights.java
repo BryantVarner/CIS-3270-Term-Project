@@ -2,12 +2,22 @@ package Business_Knowledge;
 
 // All flight information
 
+import java.util.Date;
+
 public class Flights {
 	
-	String airLine;
-	String flightNum;
-	String origin;
-	String destination;
+	private String airLine;
+	private String flightNum;
+	private String origin;
+	private String destination;
+	private int departureTime;             
+    private int arrivalTime;               
+    private String airlines;
+    private int duration;                   
+    private int flightNumber;                     
+    private int maxCapacity;                   
+    private int bookedSeats;                
+    private double costOfFlight; 
 	
 	public Flights() {
 		

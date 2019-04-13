@@ -21,11 +21,13 @@ public class javaFX extends Application {
 		
 		window = primaryStage;
 		
-		window.setTitle("Airline Reservation System");
+		window.setTitle("Airline Reservation System User Login");
 		
-		Label label1 = new Label("This is a label");
+		Label label1 = new Label("Sign In");
+		Label label2 = new Label("Username");
+		Label label3 = new Label("Password");
 		
-		Button button1 = new Button("Go to Main Menu");
+		Button button1 = new Button("Forgot username or password?");
 		
 		button1.setOnAction(e -> window.setScene(scene2));
 		
@@ -33,22 +35,24 @@ public class javaFX extends Application {
 		
 		VBox layout1 = new VBox(20);
 		
-		layout1.getChildren().addAll(label1, button1);
+		layout1.getChildren().addAll(label1, label2, label3, button1);
 		
-		scene1 = new Scene(layout1, 300,250);
+		scene1 = new Scene(layout1, 700,400);
 		
 		
 		//button 2
 		
-		Button button2 = new Button("You are progressing");
+		Button button2 = new Button("Main Menu");
+		
+		Label label4 = new Label("Forgot username or password? \n Let us help.");
 		
 		button2.setOnAction(e -> window.setScene(scene1));
 		
 		//layout 2
 		
-		StackPane layout2 = new StackPane();
+		VBox layout2 = new VBox();
 		
-		layout2.getChildren().add(button2);
+		layout2.getChildren().addAll(button2, label4);
 		scene2 = new Scene(layout2, 600 , 300);
 		
 		
