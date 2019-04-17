@@ -6,28 +6,52 @@ public class Driver {
 
 	public static void main(String[] args) throws SQLException, ClassNotFoundException  {
 		
-			
+		Connection myConn = null;
+		PreparedStatement myStmt = null;
+		ResultSet myRs = null;
+		
+			try {
 			// Establish a connection
-		    Connection connection = DriverManager.getConnection
+		    myConn = DriverManager.getConnection
 		      ("jdbc:mysql://localhost/airlinereservation" , "root" , "nodummies12345");
-		    System.out.println("Database connected");
-		
+			
 		    // Create a statement
-		    Statement statement = connection.createStatement();
-		
+		    myStmt = myConn.prepareStatement("select * from customer where name = ? and address = ?");
+			
+			
+			// set parameters
+			
+			myStmt.setString(1, "ben");
+			myStmt.setString(2, "cars");
+			
+			
 		    // Execute a statement
-		    ResultSet resultSet = statement.executeQuery
-		      ("select * from customer");
+		    myRs = myStmt.executeQuery();
 		
 		    // Iterate through the result and print the student names
-		    while (resultSet.next())
-		      System.out.println(resultSet.getString("name") + " , " +
-		        resultSet.getString("address"));
+		    
+		    display(myRs);
+		    
+			}
+		    catch(Exception ex) {
+				ex.printStackTrace();
+			}
 		
 		    // Close the connection
-		    connection.close();
+		    myConn.close();
+		    
+		    
 		
 	}
-			  
 
+	private static void display(ResultSet myRs) throws SQLException {
+		  while (myRs.next()) {
+		   String name = myRs.getString("name");
+		   String address = myRs.getString("address");
+		  
+		   
+		   System.out.printf("%s, %s ", name, address);
+		  }
+		 }
+	
 }
