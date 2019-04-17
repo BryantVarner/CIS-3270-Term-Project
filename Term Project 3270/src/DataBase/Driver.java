@@ -38,9 +38,19 @@ public class Driver {
 			}
 		
 		    // Close the connection
-		    myConn.close();
-		    
-		    
+				finally {
+				   if (myRs != null) {
+				    myRs.close();
+				   }
+				   
+				   if (myStmt != null) {
+				    myStmt.close();
+				   }
+				   
+				   if (myConn != null) {
+				    myConn.close();
+				   }
+				  }
 		
 	}
 

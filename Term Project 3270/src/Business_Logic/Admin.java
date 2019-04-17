@@ -1,4 +1,4 @@
-package Business_Knowledge;
+package Business_Logic;
 
 public class Admin extends Customer {
 	
