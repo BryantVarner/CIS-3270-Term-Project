@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="265.0" prefWidth="406.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.loginControl">
+   <children>
+      <Text layoutX="55.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="P &amp; B's Airline Reservations" textOrigin="CENTER" wrappingWidth="325.038330078125">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text layoutX="55.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" wrappingWidth="76.55273252725601" />
+      <Text layoutX="55.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" wrappingWidth="76.552734375" />
+      <Text layoutX="130.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Log in to continue" wrappingWidth="132.59765625">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextField layoutX="122.0" layoutY="104.0" promptText="Username" />
+      <TextField layoutX="122.0" layoutY="148.0" promptText="Password" />
+      <Button layoutX="68.0" layoutY="198.0" mnemonicParsing="false" onAction="#flightsBtnClicked" text="Log In" />
+      <Text layoutX="185.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Not Registered?" />
+      <Button layoutX="285.0" layoutY="198.0" mnemonicParsing="false" onAction="#registerBtnClicked" text="Register" />
+   </children>
+</AnchorPane>

@@ -24,7 +24,7 @@ public class javaFX extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		Parent root = FXMLLoader.load(getClass().getResource("GUI.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
 		Scene scene  = new Scene(root);
 		primaryStage.setTitle("Airline Reservation");
 		primaryStage.setScene(scene);
