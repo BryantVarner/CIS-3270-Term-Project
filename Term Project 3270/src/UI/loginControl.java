@@ -1,6 +1,5 @@
 package UI;
 
-import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -12,7 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
-public class loginControl implements Initializable {
+public class loginControl  {
 	
 	// when register button is clicked it changes to registration scene
 	public void registerBtnClicked(ActionEvent event) throws Exception {
@@ -70,11 +69,31 @@ public class loginControl implements Initializable {
 		window.show();
 		
 	}
-
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+	
+	public void oneWayBtnClicked(ActionEvent event) throws Exception {
+		
+		Parent register = FXMLLoader.load(getClass().getResource("flights2.fxml"));
+		
+		Scene registerScene = new Scene(register);
+		
+		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+		
+		window.setScene(registerScene);
+		window.show();
 		
 	}
-
+	
+	public void roundTripBtnClicked(ActionEvent event) throws Exception {
+		
+		Parent register = FXMLLoader.load(getClass().getResource("flights.fxml"));
+		
+		Scene registerScene = new Scene(register);
+		
+		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+		
+		window.setScene(registerScene);
+		window.show();
+		
+	}
 
 }
