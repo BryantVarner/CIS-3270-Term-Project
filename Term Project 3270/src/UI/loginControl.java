@@ -69,7 +69,8 @@ public class loginControl  {
 		window.show();
 		
 	}
-	
+	// when one way button is clicked it changes the date section
+	// to only To: instead of to and from
 	public void oneWayBtnClicked(ActionEvent event) throws Exception {
 		
 		Parent register = FXMLLoader.load(getClass().getResource("flights2.fxml"));
@@ -83,6 +84,8 @@ public class loginControl  {
 		
 	}
 	
+	/* when round trip button is clicked it changes the date section to To: and From:
+	 */
 	public void roundTripBtnClicked(ActionEvent event) throws Exception {
 		
 		Parent register = FXMLLoader.load(getClass().getResource("flights.fxml"));
