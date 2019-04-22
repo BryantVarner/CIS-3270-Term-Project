@@ -98,5 +98,18 @@ public class loginControl  {
 		window.show();
 		
 	}
+	
+	public void searchBtnClicked(ActionEvent event) throws Exception {
+		
+		Parent register = FXMLLoader.load(getClass().getResource("flightSearch.fxml"));
+		
+		Scene registerScene = new Scene(register);
+		
+		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+		
+		window.setScene(registerScene);
+		window.show();
+		
+	}
 
 }
