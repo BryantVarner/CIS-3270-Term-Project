@@ -16,13 +16,13 @@ public class Driver {
 		      ("jdbc:mysql://localhost/airlinereservation" , "root" , "nodummies12345");
 			
 		    // Create a statement
-		    myStmt = myConn.prepareStatement("select * from customer where name = ? and address = ?");
+		    myStmt = myConn.prepareStatement("select * from customer where firstName = ? and address = ?");
 			
 			
 			// set parameters
 			
-			myStmt.setString(1, "ben");
-			myStmt.setString(2, "cars");
+			myStmt.setString(1, "bern");
+			myStmt.setString(2, "sand");
 			
 			
 		    // Execute a statement
@@ -51,17 +51,55 @@ public class Driver {
 				    myConn.close();
 				   }
 				  }
+			
+			
 		
 	}
 
 	private static void display(ResultSet myRs) throws SQLException {
-		  while (myRs.next()) {
+		while (myRs.next()) {
 		   String name = myRs.getString("name");
-		   String address = myRs.getString("address");
-		  
-		   
+		   String address = myRs.getString("address");   
 		   System.out.printf("%s, %s ", name, address);
-		  }
-		 }
+	    }
+	}
+	
+	// checks if password and username is correct
+	
+	public boolean pass(String user, String pass) throws SQLException, ClassNotFoundException {
+			
+			Connection myConn = null;
+			PreparedStatement myStmt = null;
+			ResultSet myRs = null;
+			String sql = "select * from customer where username = ? and password = ? ";
+			
+				try {
+			    myConn = DriverManager.getConnection
+			      ("jdbc:mysql://localhost/airlinereservation" , "root" , "nodummies12345");
+			    myStmt = myConn.prepareStatement(sql);
+			    myStmt.setString(1, user);
+			    myStmt.setString(2, pass);
+			    myRs = myStmt.executeQuery();
+			    
+			    if (myRs.next()) {
+			    	return true;
+			    }
+			    else 
+			    	return false;
+				}
+				
+			    catch(Exception ex) {
+					ex.printStackTrace();
+				}
+				finally {
+				    myConn.close();
+	    		  }
+				
+				return false;
+	}
 	
 }
+
+
+
+
