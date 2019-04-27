@@ -1,6 +1,7 @@
 package UI;
 
-import DataBase.Driver;
+
+import Business_Logic.Customer;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,25 +19,64 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
-public class loginControl extends Driver implements Initializable {
+public class loginControl extends Customer implements Initializable {
 	
 	@FXML
 	private Label lblErrors;
 	@FXML
+	private Label lblNotFilled;
+	@FXML
+	private Label lblUserTaken;
+	@FXML
 	private TextField user;
 	@FXML
 	private TextField pass;
+	@FXML
+	private TextField address;
+	@FXML
+	private TextField zipcode;
+	@FXML
+	private TextField email;
+	@FXML
+	private TextField state;
+	@FXML
+	private TextField securityAnswer;
+	@FXML
+	private TextField firstName;
+	@FXML
+	private TextField lastName;
+	@FXML
+	private TextField ssn;
 	
 	
 	
-	// when register button is clicked it changes to registration scene
+	// when register button is clicked it changes to main menu scene
 	public void registerBtnClicked(ActionEvent event) throws Exception {
-		Parent register = FXMLLoader.load(getClass().getResource("register.fxml"));
-		Scene registerScene = new Scene(register);
+		
+		if(filledCorrect(firstName.getText(), zipcode.getText(), lastName.getText(), user.getText(),
+					pass.getText(), address.getText(), email.getText(), state.getText(),
+					securityAnswer.getText(), ssn.getText())) {
+			
+			if(uniqueUser(user.getText())) {
+		
+		Parent registers = FXMLLoader.load(getClass().getResource("main.fxml"));
+		Scene registerScene = new Scene(registers);
 		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 		window.setScene(registerScene);
 		window.show();
-	
+			}
+			
+			else 
+				
+				lblUserTaken.setText("Username is already taken.");
+		}
+		
+		else {
+			
+			lblNotFilled.setText("One or more fields are empty.");
+			
+		}
+		
 	}
 	// when forgot password label is clicked takes user to security answer scene
 	public void forgotLblClicked(ActionEvent event) throws Exception {
@@ -151,10 +191,24 @@ public class loginControl extends Driver implements Initializable {
 			}				
 	}
 	
+	// when sign up button is clicked it changes to register scene
+	
+		public void signUpBtnClicked(ActionEvent event) throws Exception {
+		
+			Parent register = FXMLLoader.load(getClass().getResource("register.fxml"));
+			Scene registerScene = new Scene(register);
+			Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+			window.setScene(registerScene);
+			window.show();
+		
+		}
+	
 	
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 	}
+	
+	
 	
 }

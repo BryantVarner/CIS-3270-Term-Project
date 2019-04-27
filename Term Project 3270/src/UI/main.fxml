@@ -15,7 +15,7 @@
             <Font size="24.0" />
          </font>
       </Text>
-      <Button layoutX="52.0" layoutY="205.0" mnemonicParsing="false" onAction="#registerBtnClicked" prefHeight="25.0" prefWidth="162.0" style="-fx-background-color: BF745F;" text="Sign Up" />
+      <Button layoutX="52.0" layoutY="205.0" mnemonicParsing="false" onAction="#signUpBtnClicked" prefHeight="25.0" prefWidth="162.0" style="-fx-background-color: BF745F;" text="Sign Up" />
       <AnchorPane layoutX="376.0" layoutY="32.0" prefHeight="291.0" prefWidth="200.0" style="-fx-background-color: #9F2F0F;">
          <children>
             <TextField fx:id="user" layoutX="16.0" layoutY="63.0" prefHeight="25.0" prefWidth="162.0" promptText="Username" />
@@ -23,8 +23,8 @@
             <Text fill="WHITE" layoutX="18.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" wrappingWidth="76.55273252725601" />
             <Text fill="WHITE" layoutX="18.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" wrappingWidth="76.552734375" />
             <PasswordField fx:id="pass" layoutX="16.0" layoutY="113.0" prefHeight="25.0" prefWidth="162.0" promptText="Password" />
-            <Label fx:id="lblErrors" layoutX="16.0" layoutY="137.0" prefHeight="17.0" prefWidth="162.0" textAlignment="CENTER" textFill="#f80000" />
-            <Label layoutX="18.0" layoutY="205.0" onMouseClicked="#forgotLblClicked" prefHeight="17.0" prefWidth="101.0" text="Forgot Password" textFill="#38c2fd" />
+            <Label fx:id="forgotlbl" layoutX="18.0" layoutY="205.0" onMouseClicked="#forgotLblClicked" onMousePressed="#forgotLblClicked" onMouseReleased="#forgotLblClicked" prefHeight="17.0" prefWidth="101.0" text="Forgot Password?" textFill="#00b7ff" />
+            <Label fx:id="lblErrors" layoutX="16.0" layoutY="137.0" prefHeight="17.0" prefWidth="183.0" textFill="WHITE" />
          </children>
       </AnchorPane>
       <Text fill="WHITE" layoutX="52.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign in to track prices and organize travel plans." wrappingWidth="217.26434326171875">

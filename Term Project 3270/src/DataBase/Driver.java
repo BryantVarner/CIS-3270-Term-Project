@@ -3,68 +3,8 @@ package DataBase;
 import java.sql.*;
 
 public class Driver {
-
-	public static void main(String[] args) throws SQLException, ClassNotFoundException  {
-		
-		Connection myConn = null;
-		PreparedStatement myStmt = null;
-		ResultSet myRs = null;
-		
-			try {
-			// Establish a connection
-		    myConn = DriverManager.getConnection
-		      ("jdbc:mysql://localhost/airlinereservation" , "root" , "nodummies12345");
-			
-		    // Create a statement
-		    myStmt = myConn.prepareStatement("select * from customer where firstName = ? and address = ?");
-			
-			
-			// set parameters
-			
-			myStmt.setString(1, "bern");
-			myStmt.setString(2, "sand");
-			
-			
-		    // Execute a statement
-		    myRs = myStmt.executeQuery();
-		
-		    // Iterate through the result and print the student names
-		    
-		    display(myRs);
-		    
-			}
-		    catch(Exception ex) {
-				ex.printStackTrace();
-			}
-		
-		    // Close the connection
-				finally {
-				   if (myRs != null) {
-				    myRs.close();
-				   }
-				   
-				   if (myStmt != null) {
-				    myStmt.close();
-				   }
-				   
-				   if (myConn != null) {
-				    myConn.close();
-				   }
-				  }
-			
-			
-		
-	}
-
-	private static void display(ResultSet myRs) throws SQLException {
-		while (myRs.next()) {
-		   String name = myRs.getString("name");
-		   String address = myRs.getString("address");   
-		   System.out.printf("%s, %s ", name, address);
-	    }
-	}
 	
-	// checks if password and username is correct
+	// checks if password and username are correct
 	
 	public boolean pass(String user, String pass) throws SQLException, ClassNotFoundException {
 			
@@ -97,6 +37,88 @@ public class Driver {
 				
 				return false;
 	}
+	
+	//when register button is clicked all the users information is updated into database
+	
+	public void register(String address, String zipcode, String email,
+						String state, String securityAnswer,
+						String firstName, String lastName,
+						String username, String password, String ssn)
+						throws SQLException, ClassNotFoundException {
+		
+		Connection myConn = null;
+		PreparedStatement myStmt = null;
+		ResultSet myRs = null;
+		String sql = "insert into customer values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		
+			try {
+		    myConn = DriverManager.getConnection
+		      ("jdbc:mysql://localhost/airlinereservation" , "root" , "nodummies12345");
+		    myStmt = myConn.prepareStatement(sql);
+		    
+		    int customerID = 1;
+		    myStmt.setInt(1, customerID);
+		    myStmt.setString(2, firstName);	
+		    myStmt.setString(3, lastName);
+		    myStmt.setString(4, email);
+		    myStmt.setString(5, address);
+		    myStmt.setString(6, username);
+		    myStmt.setString(7, password);
+		    myStmt.setString(8, ssn);
+		    myStmt.setString(9, securityAnswer);
+		    myStmt.setString(10, zipcode);
+		    myStmt.setString(11, state);
+		    
+		    myStmt.executeUpdate();
+			}
+		    catch(Exception ex) {
+				ex.printStackTrace();
+			}
+			finally {
+			    myConn.close();
+    		  }
+			
+	}
+	
+	// checks to see if the username is taken and returns false if username already exist.
+	
+	public boolean uniqueUser(String username) throws Exception {
+		
+		Connection myConn = null;
+		PreparedStatement myStmt = null;
+		ResultSet myRs = null;
+		String sql = "select * from customer where username = ?";
+		
+			try {
+		    myConn = DriverManager.getConnection
+		      ("jdbc:mysql://localhost/airlinereservation" , "root" , "nodummies12345");
+		    myStmt = myConn.prepareStatement(sql);
+		    
+		    myStmt.setString(1, username);
+		    
+		    myRs = myStmt.executeQuery();
+		    
+			    if (myRs.next()) {
+			    	
+			    	return false;
+			    }
+			    else 
+			    	return true;
+			}
+			 catch(Exception ex) {
+					ex.printStackTrace();
+			 }
+			
+			finally {
+				myConn.close();	
+			}
+		return false;
+	}
+
+	
+	
+	
+	
 	
 }
 

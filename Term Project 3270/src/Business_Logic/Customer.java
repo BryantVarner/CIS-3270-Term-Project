@@ -1,11 +1,13 @@
 package Business_Logic;
 
-public class Customer  {
+import DataBase.Driver;
+
+public class Customer extends Driver  {
 	
 	private String firstName;
 	private String lastName;
 	private String address;
-	private int zipCode;
+	private String zipCode;
 	private String state;
 	private String username;
 	private String password;
@@ -38,10 +40,10 @@ public class Customer  {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public int getZipcode() {
+	public String getZipcode() {
 		return zipCode;
 	}
-	public void setZipcode(int zipcode) {
+	public void setZipcode(String zipcode) {
 		this.zipCode = zipcode;
 	}
 	public String getState() {
@@ -80,5 +82,32 @@ public class Customer  {
 	public void setSecurityAnswer(String securityAnswer) {
 		this.securityAnswer = securityAnswer;
 	}
+	
+	// makes sure there are no unfilled boxes on registration screen and then registers customer
+	// in database if everything is filled out
+	
+	public boolean filledCorrect(String address, String zipcode, String email,
+						String state, String securityAnswer,
+						String firstName, String lastName,
+						String username, String password, String ssn) throws Exception {
+		
+		if (address.trim().equals("") || zipcode.trim().equals("") || email.trim().equals("") ||
+				state.trim().equals("") || securityAnswer.trim().equals("") || 
+				firstName.trim().equals("") || lastName.trim().equals("") || username.trim().equals("")
+				|| ssn.trim().equals("") || password.trim().equals("")) {
+			
+			
+			return false;
+		}
+		
+		else {
+			register(address,zipcode, email, state,  securityAnswer, firstName, lastName,
+					 username,  password,  ssn);
+			
+			return true;
+		}
+	}
+	
+	
 
 }
