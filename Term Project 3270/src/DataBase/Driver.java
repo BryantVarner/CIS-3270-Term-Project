@@ -38,26 +38,25 @@ public class Driver {
 				return false;
 	}
 	
-	//when register button is clicked all the users information is updated into database
+	//when register is called all the users information is updated into database
 	
-	public void register(String address, String zipcode, String email,
-						String state, String securityAnswer,
-						String firstName, String lastName,
-						String username, String password, String ssn)
+	public void register(String firstName, String lastName, String email,
+						String address, String username,
+						String password, String ssn,
+						String securityAnswer, String zipcode, String state, String birthday)
 						throws SQLException, ClassNotFoundException {
 		
 		Connection myConn = null;
 		PreparedStatement myStmt = null;
 		ResultSet myRs = null;
-		String sql = "insert into customer values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into customer values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 			try {
 		    myConn = DriverManager.getConnection
 		      ("jdbc:mysql://localhost/airlinereservation" , "root" , "nodummies12345");
 		    myStmt = myConn.prepareStatement(sql);
 		    
-		    int customerID = 1;
-		    myStmt.setInt(1, customerID);
+		    myStmt.setInt(1, 0);
 		    myStmt.setString(2, firstName);	
 		    myStmt.setString(3, lastName);
 		    myStmt.setString(4, email);
@@ -68,6 +67,7 @@ public class Driver {
 		    myStmt.setString(9, securityAnswer);
 		    myStmt.setString(10, zipcode);
 		    myStmt.setString(11, state);
+		    myStmt.setString(12, birthday);
 		    
 		    myStmt.executeUpdate();
 			}
@@ -102,8 +102,10 @@ public class Driver {
 			    	
 			    	return false;
 			    }
-			    else 
+			    else { 
+			    	
 			    	return true;
+			    }
 			}
 			 catch(Exception ex) {
 					ex.printStackTrace();
@@ -114,9 +116,6 @@ public class Driver {
 			}
 		return false;
 	}
-
-	
-	
 	
 	
 	

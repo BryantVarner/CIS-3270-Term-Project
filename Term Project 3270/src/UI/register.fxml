@@ -42,9 +42,9 @@
       <TextField fx:id="ssn" layoutX="62.0" layoutY="298.0" promptText="Social Secuirty Number" />
       <Text fill="WHITE" layoutX="64.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SSN:" />
       <Label fx:id="lblNotFilled" layoutX="173.0" layoutY="402.0" prefHeight="17.0" prefWidth="259.0" textFill="WHITE" />
-      <TextField layoutX="62.0" layoutY="340.0" prefHeight="25.0" prefWidth="38.0" promptText="MM" />
-      <TextField layoutX="109.0" layoutY="340.0" prefHeight="25.0" prefWidth="38.0" promptText="DD" />
-      <TextField layoutX="154.0" layoutY="340.0" prefHeight="25.0" prefWidth="45.0" promptText="YYYY" />
+      <TextField fx:id="birthMonth" layoutX="62.0" layoutY="340.0" prefHeight="25.0" prefWidth="38.0" promptText="MM" />
+      <TextField fx:id="birthDay" layoutX="109.0" layoutY="340.0" prefHeight="25.0" prefWidth="38.0" promptText="DD" />
+      <TextField fx:id="birthYear" layoutX="154.0" layoutY="340.0" prefHeight="25.0" prefWidth="45.0" promptText="YYYY" />
       <Label fx:id="lblUserTaken" layoutX="214.0" layoutY="181.0" prefHeight="17.0" prefWidth="149.0" textFill="WHITE" />
    </children>
 </AnchorPane>

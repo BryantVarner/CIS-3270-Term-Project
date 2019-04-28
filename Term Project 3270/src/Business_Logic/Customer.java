@@ -14,6 +14,7 @@ public class Customer extends Driver  {
 	private String email;
 	private String SSN;
 	private String securityAnswer;
+	private String birthday;
 	
 	
 	
@@ -83,29 +84,51 @@ public class Customer extends Driver  {
 		this.securityAnswer = securityAnswer;
 	}
 	
-	// makes sure there are no unfilled boxes on registration screen and then registers customer
-	// in database if everything is filled out
+	// makes sure there are no unfilled boxes on registration screen
 	
-	public boolean filledCorrect(String address, String zipcode, String email,
-						String state, String securityAnswer,
-						String firstName, String lastName,
-						String username, String password, String ssn) throws Exception {
+	public boolean filledCorrect(String firstName, String lastName, String email, String address,
+			String username, String password, String ssn, String securityAnswer,
+			String zipcode, String state, String birthday) throws Exception {
 		
 		if (address.trim().equals("") || zipcode.trim().equals("") || email.trim().equals("") ||
 				state.trim().equals("") || securityAnswer.trim().equals("") || 
 				firstName.trim().equals("") || lastName.trim().equals("") || username.trim().equals("")
-				|| ssn.trim().equals("") || password.trim().equals("")) {
-			
-			
+				|| ssn.trim().equals("") || password.trim().equals("") || birthday.trim().equals("")) {
+	
 			return false;
 		}
 		
-		else {
-			register(address,zipcode, email, state,  securityAnswer, firstName, lastName,
-					 username,  password,  ssn);
+		else 
+			
+			this.address = address;
+			this.zipCode = zipcode;
+			this.email = email;
+			this.state = state;
+			this.securityAnswer = securityAnswer;
+			this.firstName = firstName;
+			this.lastName = lastName;
+			this.username = username;
+			this.password = password;
+			this.SSN = ssn;
+			this.birthday = birthday;
+			
+			return true;
+	}
+	
+	// checks if username is unique
+	
+	public boolean checkUser(String username) throws Exception{
+		
+		if (uniqueUser(username)) {
+			
+			register(firstName, lastName, email, address, username, password, SSN,
+					 securityAnswer, zipCode, state, birthday);
 			
 			return true;
 		}
+		
+		else
+		return false;
 	}
 	
 	

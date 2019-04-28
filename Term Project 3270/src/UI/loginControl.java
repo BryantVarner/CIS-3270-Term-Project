@@ -47,17 +47,25 @@ public class loginControl extends Customer implements Initializable {
 	private TextField lastName;
 	@FXML
 	private TextField ssn;
+	@FXML
+	private TextField birthMonth;
+	@FXML
+	private TextField birthDay;
+	@FXML
+	private TextField birthYear;
 	
 	
 	
-	// when register button is clicked it changes to main menu scene
+	// when register button is clicked it changes to main menu scene if unique account is entered
 	public void registerBtnClicked(ActionEvent event) throws Exception {
 		
-		if(filledCorrect(firstName.getText(), zipcode.getText(), lastName.getText(), user.getText(),
-					pass.getText(), address.getText(), email.getText(), state.getText(),
-					securityAnswer.getText(), ssn.getText())) {
+		String birthday = birthMonth.getText() + "/" + birthDay.getText() + "/" + birthYear.getText();
+		
+		if(filledCorrect(firstName.getText(), lastName.getText(), email.getText(), address.getText(),
+					user.getText(), pass.getText(), ssn.getText(), securityAnswer.getText(),
+					zipcode.getText(), state.getText(), birthday)) {
 			
-			if(uniqueUser(user.getText())) {
+			if(checkUser(user.getText())) {
 		
 		Parent registers = FXMLLoader.load(getClass().getResource("main.fxml"));
 		Scene registerScene = new Scene(registers);
@@ -67,15 +75,11 @@ public class loginControl extends Customer implements Initializable {
 			}
 			
 			else 
-				
 				lblUserTaken.setText("Username is already taken.");
 		}
 		
-		else {
-			
+		else 
 			lblNotFilled.setText("One or more fields are empty.");
-			
-		}
 		
 	}
 	// when forgot password label is clicked takes user to security answer scene
