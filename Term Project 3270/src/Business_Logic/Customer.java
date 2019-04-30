@@ -1,8 +1,6 @@
 package Business_Logic;
 
-import DataBase.Driver;
-
-public class Customer extends Driver  {
+public class Customer extends Flights  {
 	
 	private String firstName;
 	private String lastName;

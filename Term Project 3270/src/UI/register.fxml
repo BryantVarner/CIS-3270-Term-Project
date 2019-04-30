@@ -46,5 +46,6 @@
       <TextField fx:id="birthDay" layoutX="109.0" layoutY="340.0" prefHeight="25.0" prefWidth="38.0" promptText="DD" />
       <TextField fx:id="birthYear" layoutX="154.0" layoutY="340.0" prefHeight="25.0" prefWidth="45.0" promptText="YYYY" />
       <Label fx:id="lblUserTaken" layoutX="214.0" layoutY="181.0" prefHeight="17.0" prefWidth="149.0" textFill="WHITE" />
+      <Button layoutX="492.0" layoutY="22.0" mnemonicParsing="false" onAction="#mainMenuBtnClicked" style="-fx-background-color: BF745F;" text="Main Menu" />
    </children>
 </AnchorPane>

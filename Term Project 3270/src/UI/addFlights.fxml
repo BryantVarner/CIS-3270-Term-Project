@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="396.0" prefWidth="623.0" style="-fx-background-color: #344755;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.flightsControl">
+   <children>
+      <Button layoutX="-140.0" layoutY="-135.0" mnemonicParsing="false" prefWidth="376.0" text="Button" />
+      <Button layoutX="22.0" layoutY="23.0" mnemonicParsing="false" onAction="#mainMenuBtnClicked" style="-fx-background-color: BF745F;" text="Main Menu" />
+      <Text fill="WHITE" layoutX="251.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manage Flights">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Button layoutX="454.0" layoutY="23.0" mnemonicParsing="false" onAction="#backToAdminTerminalBtnClicked" style="-fx-background-color: BF745F;" text="Back to admin's terminal" />
+      <TableView fx:id="tableview" layoutX="22.0" layoutY="75.0" prefHeight="149.0" prefWidth="579.0">
+         <columns>
+            <TableColumn fx:id="colFlightNum" prefWidth="85.0" text="Flight number" />
+            <TableColumn fx:id="colDate" prefWidth="68.66668701171875" text="Date" />
+            <TableColumn fx:id="colDepartureTime" prefWidth="93.33331298828125" text="Departure time" />
+            <TableColumn fx:id="colDepartFrom" prefWidth="91.0" text="Depart from" />
+            <TableColumn fx:id="colArrivalTo" prefWidth="98.0" text="Arrival to" />
+            <TableColumn fx:id="colAirline" prefWidth="75.0" text="Airline" />
+            <TableColumn fx:id="colSeatPrice" prefWidth="68.0" text="Seat price" />
+         </columns>
+      </TableView>
+      <Button layoutX="22.0" layoutY="251.0" mnemonicParsing="false" onAction="#addFlightsBtnClicked" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: BF745F;" text="Add Flight" />
+      <Button layoutX="22.0" layoutY="324.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: BF745F;" text="Delete Flight" />
+      <TextField fx:id="flightNum" layoutX="124.0" layoutY="251.0" prefHeight="25.0" prefWidth="63.0" promptText="Flight No." />
+      <TextField fx:id="flightDate" layoutX="194.0" layoutY="251.0" prefHeight="25.0" prefWidth="63.0" promptText="Date" />
+      <TextField fx:id="departTime" layoutX="264.0" layoutY="251.0" prefHeight="25.0" prefWidth="63.0" promptText="Depart time" />
+      <TextField fx:id="departFrom" layoutX="335.0" layoutY="251.0" prefHeight="25.0" prefWidth="63.0" promptText="Depart from" />
+      <TextField fx:id="arrivalTo" layoutX="404.0" layoutY="251.0" prefHeight="25.0" prefWidth="63.0" promptText="Arrival to" />
+      <TextField fx:id="seatPrice" layoutX="546.0" layoutY="251.0" prefHeight="25.0" prefWidth="63.0" promptText="Seat price" />
+      <TextField fx:id="airline" layoutX="475.0" layoutY="251.0" prefHeight="25.0" prefWidth="63.0" promptText="Airline" />
+      <TextField layoutX="124.0" layoutY="324.0" prefHeight="25.0" prefWidth="95.0" promptText="Flight number" />
+      <Text fill="WHITE" layoutX="130.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Flight No." />
+      <Text fill="WHITE" layoutX="213.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
+      <Text fill="WHITE" layoutX="264.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Depart time" />
+      <Text fill="WHITE" layoutX="334.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Depart from" />
+      <Text fill="WHITE" layoutX="490.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Airline" />
+      <Text fill="WHITE" layoutX="411.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Arrival to" />
+      <Text fill="WHITE" layoutX="551.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seat price" />
+      <Label fx:id="lblNotFilled" layoutX="22.0" layoutY="276.0" prefHeight="17.0" prefWidth="184.0" textFill="WHITE" />
+      <Text fill="WHITE" layoutX="130.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Flight number" />
+   </children>
+</AnchorPane>

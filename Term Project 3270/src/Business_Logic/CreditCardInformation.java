@@ -1,6 +1,8 @@
 package Business_Logic;
 
-public class CreditCardInformation {
+import DataBase.CustomerData;
+
+public class CreditCardInformation extends CustomerData {
 	
 	private String CardType;
 	private String firstName;

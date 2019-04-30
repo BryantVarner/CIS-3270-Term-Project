@@ -2,7 +2,7 @@ package DataBase;
 
 import java.sql.*;
 
-public class Driver {
+public class CustomerData extends FlightsData {
 	
 	// checks if password and username are correct
 	
@@ -116,6 +116,11 @@ public class Driver {
 			}
 		return false;
 	}
+	
+	// checks if password and username are correct for admin
+	
+		
+		
 	
 	
 	
