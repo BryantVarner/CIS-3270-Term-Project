@@ -52,6 +52,8 @@ public class loginControl extends Customer implements Initializable {
 	@FXML
 	private TextField birthYear;
 	
+	private int custID;
+	
 	// when register button is clicked it changes to main menu scene if unique account is entered
 	public void registerBtnClicked(ActionEvent event) throws Exception {
 		
@@ -91,15 +93,18 @@ public class loginControl extends Customer implements Initializable {
 	// database and then shows password if criteria is met.
 	public void getPasswordBtnClicked(ActionEvent event) throws Exception {
 		
+		String username;
+		String pass;
+	
 		if (checkUserName(user.getText(), securityAnswer.getText())) {
 			
-			lblRetrievePass.setText("Your password");
+			 username = user.getText();
+			 pass = getPass(username);
 			
+			lblRetrievePass.setText(pass);
 		}
-		
 		else 
 			lblRetrievePass.setText("Username or security answer is invalid.");
-
 	}
 	
 	// when main menu button is clicked anywhere it returns to login screen.
@@ -115,6 +120,12 @@ public class loginControl extends Customer implements Initializable {
 	public void userSignInBtnClicked(ActionEvent event) throws Exception {
 		
 			if (pass(user.getText().toString(), pass.getText().toString())) {
+				
+				String username = user.getText().toString();
+				Customer customer = new Customer();
+				customer.setUsername(username);				
+				custID = custID(username);
+				customer.setCustomerID(custID);
 					
 			Parent register = FXMLLoader.load(getClass().getResource("flights.fxml"));
 			Scene registerScene = new Scene(register);

@@ -3,10 +3,10 @@ package DataBase;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class FlightsData extends AdminData {
-	
 	
 	public static Connection getConnection() throws SQLException {
 		
@@ -17,7 +17,6 @@ public class FlightsData extends AdminData {
 	}
 	
 	// adds a flight to flight database
-	
 	public void addFlight(String flightNums, String flightDate, String departTime, 
 						String departFrom, String arrivalTo, String airline, String seatPrices)
 						throws SQLException, ClassNotFoundException {
@@ -51,6 +50,64 @@ public class FlightsData extends AdminData {
 			}
 	
 	
+	public boolean unique(int customerID, String flightNum) throws SQLException, ClassNotFoundException {
+		
+		Connection myConn = null;
+		PreparedStatement myStmt = null;
+		ResultSet myRs = null;
+		String sql = "select * from bookings where customerID = ? and flightNum = ? ";
+		
+			try {
+		    myConn = DriverManager.getConnection
+		      ("jdbc:mysql://localhost/airlinereservation" , "root" , "nodummies12345");
+		    myStmt = myConn.prepareStatement(sql);
+		    myStmt.setInt(1, customerID);
+		    myStmt.setString(2, flightNum);
+		    myRs = myStmt.executeQuery();
+		    
+		    if (myRs.next()) {
+		    	return true;
+		    }
+		    else 
+		    	return false;
+			}
+			
+		    catch(Exception ex) {
+				ex.printStackTrace();
+			}
+			finally {
+			    myConn.close();
+    		  }
+			
+			return false;
+}
+
+	
+	public void book(int customerID, String flightNum) throws SQLException {
+		
+		Connection myConn = null;
+		PreparedStatement myStmt = null;
+		String sql = "insert into bookings values (?, ?, ?)";
+		
+		
+			try {
+			    myConn = DriverManager.getConnection
+			      ("jdbc:mysql://localhost/airlinereservation" , "root" , "nodummies12345");
+			    myStmt = myConn.prepareStatement(sql);
+			    
+			    myStmt.setInt(1, 0);
+			    myStmt.setInt(2, customerID);	
+			    myStmt.setString(3, flightNum);
+			
+			    myStmt.executeUpdate();
+		 	}
+		 		    catch(Exception ex) {
+		 				ex.printStackTrace();
+		 			}
+		 			finally {
+		 			    myConn.close();
+		     		  }
+	}
 	
 	
 	

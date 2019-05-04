@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+import Business_Logic.Customer;
 import Business_Logic.Flights;
 import DataBase.FlightsData;
 import javafx.collections.FXCollections;
@@ -64,6 +66,11 @@ public class flightsControl extends loginControl implements Initializable {
 	private TextField custDepartFrom;
 	@FXML
 	private TextField custArrivalTo;
+	@FXML
+	private Label lblflightBooked;
+	@FXML
+	private Label lblBookedSuccess;
+	
 	
 	protected String date;
 	protected String from;
@@ -82,13 +89,22 @@ public class flightsControl extends loginControl implements Initializable {
 	
 	// when user clicks book flights CONSTRUCTION
 	public void bookFlightsBtnClicked(ActionEvent event) throws Exception {
-			
-			Parent register = FXMLLoader.load(getClass().getResource("flights.fxml"));			
-			Scene registerScene = new Scene(register);	
-			Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();		
-			window.setScene(registerScene);
-			window.show();
+		
+		Flights data = tableview.getSelectionModel().getSelectedItem();
+		String flight = data.getFlightNum();
+		Customer customer = new Customer();
+		int id = customer.getCustomerID();
+		
+		if(unique(id,flight)) {
+			// display flight is already booked
+			lblflightBooked.setText("You already have flight " + flight + " booked.");
 		}
+		else {	
+			//book flight
+			book(id,flight);
+			lblflightBooked.setText("Flight " + flight + " is now booked.");
+		}
+	}
 		
 	// when search button is clicked it shows list of flights user specified
 	public void searchBtnClicked(ActionEvent event) throws Exception {
@@ -141,15 +157,11 @@ public class flightsControl extends loginControl implements Initializable {
 			throws ClassNotFoundException, SQLException {
 		
 	ObservableList<Flights> obList = FXCollections.observableArrayList();
-		
-	String str = date;
-	String str1 = from;
-	String str2 = to;
 			
 	PreparedStatement myStmt = null;
 	ResultSet rs = null;
-	String sql = " select * from flights where departFrom = " + "'" + str1 + "'"
-		+ "and arrivalDestination = " + "'" + str2 + "'" + " and date = " + "'" + str + "'";
+	String sql = " select * from flights where departFrom = " + "'" + from + "'"
+		+ "and arrivalDestination = " + "'" + to + "'" + " and date = " + "'" + date + "'";
 			
 		try {	
 			Connection con = FlightsData.getConnection();

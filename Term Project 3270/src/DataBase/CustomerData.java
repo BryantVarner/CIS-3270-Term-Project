@@ -71,6 +71,42 @@ public class CustomerData extends FlightsData {
 			return false;
 	}
 	
+	// returns pass when called
+	public String getPass(String user) 
+			throws SQLException, ClassNotFoundException {
+		
+		String pass = null;
+		
+		Connection myConn = null;
+		PreparedStatement myStmt = null;
+		ResultSet myRs = null;
+		String sql = "select * from customer where username = ? ";
+		
+			try {
+		    myConn = DriverManager.getConnection
+		      ("jdbc:mysql://localhost/airlinereservation" , "root" , "nodummies12345");
+		    myStmt = myConn.prepareStatement(sql);
+		    myStmt.setString(1, user);
+		    myRs = myStmt.executeQuery();
+		    
+		    while(myRs.next()) {
+		    	
+		    	pass = myRs.getString("password");
+		    }
+		    
+			}
+			
+		    catch(Exception ex) {
+				ex.printStackTrace();
+			}
+			finally {
+			    myConn.close();
+			  }
+			
+			return pass;
+			
+		}
+	
 	//when register is called all the users information is updated into database
 	
 	public void register(String firstName, String lastName, String email,
@@ -81,7 +117,6 @@ public class CustomerData extends FlightsData {
 		
 		Connection myConn = null;
 		PreparedStatement myStmt = null;
-		ResultSet myRs = null;
 		String sql = "insert into customer values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 			try {
@@ -114,7 +149,6 @@ public class CustomerData extends FlightsData {
 	}
 	
 	// checks to see if the username is taken and returns false if username already exist.
-	
 	public boolean uniqueUser(String username) throws Exception {
 		
 		Connection myConn = null;
@@ -150,7 +184,34 @@ public class CustomerData extends FlightsData {
 		return false;
 	}
 	
-	// checks if password and username are correct for admin
+	public int custID(String user) throws Exception {
+		
+		int custID = 0;
+		
+		Connection myConn = null;
+		PreparedStatement myStmt = null;
+		ResultSet myRs = null;
+		String sql = "select * from customer where username = ?";
+		
+			try {
+		    myConn = DriverManager.getConnection
+		      ("jdbc:mysql://localhost/airlinereservation" , "root" , "nodummies12345");
+		    myStmt = myConn.prepareStatement(sql);
+		    myStmt.setString(1, user);
+		    myRs = myStmt.executeQuery();
+		    
+			    while(myRs.next()) {	
+			    	custID = myRs.getInt("customerID");
+			    }
+			}
+		    catch(Exception ex) {
+				ex.printStackTrace();
+			}
+			finally {
+			    myConn.close();
+    		}
+		return custID;
+	}
 	
 		
 		

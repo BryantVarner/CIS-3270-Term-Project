@@ -13,7 +13,7 @@ public class Customer extends Flights  {
 	private String SSN;
 	private String securityAnswer;
 	private String birthday;
-	
+	static int customerID;
 	
 	
 	public Customer() {
@@ -55,6 +55,7 @@ public class Customer extends Flights  {
 		return username;
 	}
 	public void setUsername(String username) {
+		System.out.println(username);
 		this.username = username;
 	}
 	public String getPassword() {
@@ -128,7 +129,12 @@ public class Customer extends Flights  {
 		else
 		return false;
 	}
-	
-	
 
+	public int getCustomerID() {
+		return customerID;
+	}
+
+	public void setCustomerID(int customerID) {
+		this.customerID = customerID;
+	}
 }

@@ -60,10 +60,10 @@ public class manageFlightsControl extends flightsControl implements Initializabl
 	@FXML
 	private Label lblNotFilled;
 	
-	
 	ObservableList<Flights> observableList = FXCollections.observableArrayList();
 	
-	// when add flights is clicked it verfies if all text fields are filled and adds a new flight
+	
+	// when add flights is clicked it verifies if all text fields are filled and adds a new flight
 	public void addFlightsBtnClicked(ActionEvent event) throws Exception {
 			
 			if(flightFilledCorrect(flightNum.getText(), flightDate.getText(),
