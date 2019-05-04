@@ -1,6 +1,5 @@
 package UI;
 
-
 import Business_Logic.Customer;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,6 +23,8 @@ public class loginControl extends Customer implements Initializable {
 	private Label lblNotFilled;
 	@FXML
 	private Label lblUserTaken;
+	@FXML
+	private Label lblRetrievePass;
 	@FXML
 	private TextField user;
 	@FXML
@@ -50,7 +51,6 @@ public class loginControl extends Customer implements Initializable {
 	private TextField birthDay;
 	@FXML
 	private TextField birthYear;
-	
 	
 	// when register button is clicked it changes to main menu scene if unique account is entered
 	public void registerBtnClicked(ActionEvent event) throws Exception {
@@ -87,18 +87,21 @@ public class loginControl extends Customer implements Initializable {
 		window.show();
 	
 	}
-	
-	// when login button is clicked it changes to flights scene
-		public void flightsBtnClicked(ActionEvent event) throws Exception {
-			Parent register = FXMLLoader.load(getClass().getResource("flights.fxml"));
-			Scene registerScene = new Scene(register);
-			Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-			window.setScene(registerScene);
-			window.show();
+	// when the get password button is clicked it verifies if username and security question matches
+	// database and then shows password if criteria is met.
+	public void getPasswordBtnClicked(ActionEvent event) throws Exception {
 		
+		if (checkUserName(user.getText(), securityAnswer.getText())) {
+			
+			lblRetrievePass.setText("Your password");
+			
 		}
 		
-		
+		else 
+			lblRetrievePass.setText("Username or security answer is invalid.");
+
+	}
+	
 	// when main menu button is clicked anywhere it returns to login screen.
 	public void mainMenuBtnClicked(ActionEvent event) throws Exception {
 		Parent register = FXMLLoader.load(getClass().getResource("main.fxml"));
@@ -107,27 +110,6 @@ public class loginControl extends Customer implements Initializable {
 		window.setScene(registerScene);
 		window.show();
 	}
-	
-	// when cabin and travelers button is clicked it goes to cabin and travelers scene
-	public void cabinBtnClicked(ActionEvent event) throws Exception {
-		Parent register = FXMLLoader.load(getClass().getResource("cabinTravel.fxml"));
-		Scene registerScene = new Scene(register);
-		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-		window.setScene(registerScene);
-		window.show();
-	}
-	
-	/*
-	 * when search button is clicked it takes user to list of flights they specified
-	 */
-	public void searchBtnClicked(ActionEvent event) throws Exception {
-		Parent register = FXMLLoader.load(getClass().getResource("flightSearch.fxml"));
-		Scene registerScene = new Scene(register);
-		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-		window.setScene(registerScene);
-		window.show();
-	}
-	
 	
 	// when userSignIn button is clicked it verifies if username and password is correct
 	public void userSignInBtnClicked(ActionEvent event) throws Exception {
@@ -148,7 +130,7 @@ public class loginControl extends Customer implements Initializable {
 	}
 	
 	// when adminSignIn button is clicked it verifies if username and password is correct
-		public void adminSignInBtnClicked(ActionEvent event) throws Exception {
+	public void adminSignInBtnClicked(ActionEvent event) throws Exception {
 			
 				if (adminPass(user.getText().toString(), pass.getText().toString())) {
 						
@@ -166,8 +148,7 @@ public class loginControl extends Customer implements Initializable {
 		}
 	
 	// when sign up button is clicked it changes to register scene
-	
-		public void signUpBtnClicked(ActionEvent event) throws Exception {
+	public void signUpBtnClicked(ActionEvent event) throws Exception {
 			Parent register = FXMLLoader.load(getClass().getResource("register.fxml"));
 			Scene registerScene = new Scene(register);
 			Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -176,21 +157,18 @@ public class loginControl extends Customer implements Initializable {
 		
 		}
 		
-		public void manageFlightsBtnClicked(ActionEvent event) throws Exception {
+	// when manage flights button is clicked it takes admin to flights page where they can 
+	// add and delete flights
+	public void manageFlightsBtnClicked(ActionEvent event) throws Exception {
 			Parent register = FXMLLoader.load(getClass().getResource("addFlights.fxml"));
 			Scene registerScene = new Scene(register);	
 			Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 			window.setScene(registerScene);
 			window.show();
 		}
-
-		
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		
-		
 	}
-	
-	
 }

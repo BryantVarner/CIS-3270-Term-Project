@@ -2,7 +2,9 @@ package UI;
 
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import Business_Logic.Flights;
 import DataBase.FlightsData;
@@ -56,79 +58,75 @@ public class flightsControl extends loginControl implements Initializable {
 	private TextField seatPrice;
 	@FXML
 	private Label lblNotFilled;
+	@FXML
+	private TextField custDepartDate;
+	@FXML
+	private TextField custDepartFrom;
+	@FXML
+	private TextField custArrivalTo;
+	
+	protected String date;
+	protected String from;
+	protected String to;
 	
 	ObservableList<Flights> observableList = FXCollections.observableArrayList();
 	
-	
-	public void addFlightsBtnClicked(ActionEvent event) throws Exception {
-			
-			if(flightFilledCorrect(flightNum.getText(), flightDate.getText(),
-									departTime.getText(), departFrom.getText(),
-									arrivalTo.getText(), airline.getText(),
-									seatPrice.getText()))
-			{
-				
-				addFlights();
-				Parent registers = FXMLLoader.load(getClass().getResource("adminMain.fxml"));
-				Scene registerScene = new Scene(registers);
-				Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-				window.setScene(registerScene);
-				window.show();
-			}
-				
-				else {
-					lblNotFilled.setText("One or more fields are empty.");
-			}
-			
-	}
-	
-	
 	// when main menu button is clicked anywhere it returns to login screen.
-		public void mainMenuBtnClicked(ActionEvent event) throws Exception {
+	public void mainMenuBtnClicked(ActionEvent event) throws Exception {
 			Parent register = FXMLLoader.load(getClass().getResource("main.fxml"));
 			Scene registerScene = new Scene(register);	
 			Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 			window.setScene(registerScene);
 			window.show();
 		}
-		
-	// when login button is clicked it changes to flights scene
-		public void flightsBtnClicked(ActionEvent event) throws Exception {
-			Parent register = FXMLLoader.load(getClass().getResource("flights.fxml"));
-			Scene registerScene = new Scene(register);
-			Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-			window.setScene(registerScene);
-			window.show();			
-		}
+	
+	// when user clicks book flights CONSTRUCTION
+	public void bookFlightsBtnClicked(ActionEvent event) throws Exception {
 			
-		public void backToAdminTerminalBtnClicked(ActionEvent event) throws Exception {
-			Parent register = FXMLLoader.load(getClass().getResource("adminMain.fxml"));			
+			Parent register = FXMLLoader.load(getClass().getResource("flights.fxml"));			
 			Scene registerScene = new Scene(register);	
 			Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();		
 			window.setScene(registerScene);
 			window.show();
 		}
 		
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+	// when search button is clicked it shows list of flights user specified
+	public void searchBtnClicked(ActionEvent event) throws Exception {
+
+			
+			date = custDepartDate.getText().toString();
+			from = custDepartFrom.getText().toString();
+			to = custArrivalTo.getText().toString();
+			
+			colFlightNum.setCellValueFactory(new PropertyValueFactory<>("FlightNum"));
+			colDate.setCellValueFactory(new PropertyValueFactory<>("FlightDate"));
+			colDepartureTime.setCellValueFactory(new PropertyValueFactory<>("DepartTime"));
+			colDepartFrom.setCellValueFactory(new PropertyValueFactory<>("DepartFrom"));
+			colArrivalTo.setCellValueFactory(new PropertyValueFactory<>("ArrivalTo"));
+			colAirline.setCellValueFactory(new PropertyValueFactory<>("Airline"));
+			colSeatPrice.setCellValueFactory(new PropertyValueFactory<>("SeatPrice"));
+			tableview.setItems(getSearch(date,from,to));
+		
+		}
+
+	// when see all flights button is clicked it shows list of all flights available
+	public void seeAllFlightsClicked(ActionEvent event) throws Exception {
 		
 		try {
 			
 			Connection con = FlightsData.getConnection();
 			ResultSet rs = con.createStatement().executeQuery("select * from flights");
-			
+				
 			while(rs.next()) {
 				observableList.add(new Flights(rs.getString("FlightNum"), rs.getString("date"),
 									rs.getString("departureTime"), rs.getString("departFrom"),
 									rs.getString("arrivalDestination"), rs.getString("airline"),
-									rs.getString("seatPrice")));
+									rs.getString("seatPrice")));		
 			}
-		
 		}
 		catch(Exception ex) {
 			ex.printStackTrace();
 		}
-		
 		colFlightNum.setCellValueFactory(new PropertyValueFactory<>("FlightNum"));
 		colDate.setCellValueFactory(new PropertyValueFactory<>("FlightDate"));
 		colDepartureTime.setCellValueFactory(new PropertyValueFactory<>("DepartTime"));
@@ -137,8 +135,45 @@ public class flightsControl extends loginControl implements Initializable {
 		colAirline.setCellValueFactory(new PropertyValueFactory<>("Airline"));
 		colSeatPrice.setCellValueFactory(new PropertyValueFactory<>("SeatPrice"));
 		tableview.setItems(observableList);
+	}
+	
+	public static ObservableList<Flights> getSearch(String date, String from, String to) 
+			throws ClassNotFoundException, SQLException {
+		
+	ObservableList<Flights> obList = FXCollections.observableArrayList();
+		
+	String str = date;
+	String str1 = from;
+	String str2 = to;
+			
+	PreparedStatement myStmt = null;
+	ResultSet rs = null;
+	String sql = " select * from flights where departFrom = " + "'" + str1 + "'"
+		+ "and arrivalDestination = " + "'" + str2 + "'" + " and date = " + "'" + str + "'";
+			
+		try {	
+			Connection con = FlightsData.getConnection();
+			myStmt = con.prepareStatement(sql);
+			rs = myStmt.executeQuery();
+				
+			while(rs.next()) {
+				obList.add(new Flights(rs.getString("FlightNum"), rs.getString("date"),
+						rs.getString("departureTime"), rs.getString("departFrom"),
+						rs.getString("arrivalDestination"), rs.getString("airline"),
+						rs.getString("seatPrice")));
+			}
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return obList;
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources ) {
+		
+		
+		}
 	
 	}
-			
 	
-}

@@ -38,6 +38,39 @@ public class CustomerData extends FlightsData {
 				return false;
 	}
 	
+	public boolean checkUserName(String user, String securityAnswer) 
+					throws SQLException, ClassNotFoundException {
+		
+		Connection myConn = null;
+		PreparedStatement myStmt = null;
+		ResultSet myRs = null;
+		String sql = "select * from customer where username = ? and securityAnswer = ? ";
+		
+			try {
+		    myConn = DriverManager.getConnection
+		      ("jdbc:mysql://localhost/airlinereservation" , "root" , "nodummies12345");
+		    myStmt = myConn.prepareStatement(sql);
+		    myStmt.setString(1, user);
+		    myStmt.setString(2, securityAnswer);
+		    myRs = myStmt.executeQuery();
+		    
+		    if (myRs.next()) {
+		    	return true;
+		    }
+		    else 
+		    	return false;
+			}
+			
+		    catch(Exception ex) {
+				ex.printStackTrace();
+			}
+			finally {
+			    myConn.close();
+    		  }
+			
+			return false;
+	}
+	
 	//when register is called all the users information is updated into database
 	
 	public void register(String firstName, String lastName, String email,

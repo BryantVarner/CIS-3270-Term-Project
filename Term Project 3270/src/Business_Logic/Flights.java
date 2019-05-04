@@ -1,7 +1,5 @@
 package Business_Logic;
 
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 // All flight information
@@ -24,6 +22,10 @@ import javafx.beans.property.SimpleStringProperty;
 	private String arrivalTos;
 	private String airlines;
 	private String seatPrices;
+	
+	private String date;
+	private String from;
+	private String to;
 	
 	
 	public Flights() {
@@ -148,6 +150,36 @@ import javafx.beans.property.SimpleStringProperty;
 		addFlight(flightNums, flightDates, departTimes, departFroms,
 				arrivalTos, airlines, seatPrices);
 		
+	}
+
+
+	public String getDate() {
+		return date;
+	}
+
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+
+	public String getFrom() {
+		return from;
+	}
+
+
+	public void setFrom(String from) {
+		this.from = from;
+	}
+
+
+	public String getTo() {
+		return to;
+	}
+
+
+	public void setTo(String to) {
+		this.to = to;
 	}
 	
 	
