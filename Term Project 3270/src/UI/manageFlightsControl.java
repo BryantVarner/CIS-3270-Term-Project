@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import Business_Logic.Customer;
 import Business_Logic.Flights;
 import DataBase.FlightsData;
 import javafx.collections.FXCollections;
@@ -59,6 +60,9 @@ public class manageFlightsControl extends flightsControl implements Initializabl
 	private TextField seatPrice;
 	@FXML
 	private Label lblNotFilled;
+	@FXML
+	private Label lblDelete;
+	
 	
 	ObservableList<Flights> observableList = FXCollections.observableArrayList();
 	
@@ -140,7 +144,29 @@ public class manageFlightsControl extends flightsControl implements Initializabl
 			
 			return observableList;
 		}
+
+	public void deleteFlightBtnClicked(ActionEvent event) throws Exception {
+		
+		Flights flight = tableview.getSelectionModel().getSelectedItem();
+		
+		if(flight == null) {
+		lblNotFilled.setText("Please select a flight first.");
+		}
+		else {
+			String data = flight.getFlightNum();
 			
+			if (checkCustomerBookings(data)) {
+				deleteFlightBooks(data);
+				deleteFlight(data);
+			}
+			else {
+			deleteFlight(data);
+			
+			// display flight deleted press show my flights again to refresh.
+			lblNotFilled.setText("Flight deleted.");
+			}
+		}
+	}
 		@Override
 	public void initialize(URL location, ResourceBundle resources ) {
 				
@@ -172,6 +198,5 @@ public class manageFlightsControl extends flightsControl implements Initializabl
 			tableview.setItems(observableList);
 			
 		}
-	
 
 }

@@ -92,11 +92,9 @@ public class FlightsData extends AdminData {
 			    myConn = DriverManager.getConnection
 			      ("jdbc:mysql://localhost/airlinereservation" , "root" , "nodummies12345");
 			    myStmt = myConn.prepareStatement(sql);
-			    
 			    myStmt.setInt(1, 0);
-			    myStmt.setInt(2, customerID);	
+			    myStmt.setInt(2, customerID);
 			    myStmt.setString(3, flightNum);
-			
 			    myStmt.executeUpdate();
 		 	}
 		 		    catch(Exception ex) {
