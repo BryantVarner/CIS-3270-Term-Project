@@ -55,7 +55,6 @@ public class Customer extends Flights  {
 		return username;
 	}
 	public void setUsername(String username) {
-		System.out.println(username);
 		this.username = username;
 	}
 	public String getPassword() {

@@ -68,8 +68,6 @@ public class flightsControl extends loginControl implements Initializable {
 	private TextField custArrivalTo;
 	@FXML
 	private Label lblflightBooked;
-	@FXML
-	private Label lblBookedSuccess;
 	
 	
 	protected String date;
@@ -90,30 +88,42 @@ public class flightsControl extends loginControl implements Initializable {
 	// when user clicks book flights CONSTRUCTION
 	public void bookFlightsBtnClicked(ActionEvent event) throws Exception {
 		
-		Flights data = tableview.getSelectionModel().getSelectedItem();
-		String flight = data.getFlightNum();
-		Customer customer = new Customer();
-		int id = customer.getCustomerID();
+		lblflightBooked.setText("");
 		
-		if(unique(id,flight)) {
-			// display flight is already booked
-			lblflightBooked.setText("You already have flight " + flight + " booked.");
+		Flights data = tableview.getSelectionModel().getSelectedItem();
+		if(data == null) {
+			lblflightBooked.setText("Please select a flight first.");
 		}
-		else {	
-			//book flight
-			book(id,flight);
-			lblflightBooked.setText("Flight " + flight + " is now booked.");
-		}
+			else {
+			String flight = data.getFlightNum();
+			Customer customer = new Customer();
+			int id = customer.getCustomerID();
+			
+				if(unique(id,flight)) {
+					// display flight is already booked
+					lblflightBooked.setText("You already have flight " + flight + " booked.");
+				}
+					else {	
+						//book flight
+						book(id,flight);
+						lblflightBooked.setText("Flight " + flight + " is now booked.");
+					}
+			}
 	}
 		
 	// when search button is clicked it shows list of flights user specified
 	public void searchBtnClicked(ActionEvent event) throws Exception {
-
+		
+		lblflightBooked.setText("");
+		date = custDepartDate.getText().toString();
+		from = custDepartFrom.getText().toString();
+		to = custArrivalTo.getText().toString();
 			
-			date = custDepartDate.getText().toString();
-			from = custDepartFrom.getText().toString();
-			to = custArrivalTo.getText().toString();
-			
+		if (date.trim().equals("") || from.trim().equals("") || to.trim().equals("")) {
+				
+			lblflightBooked.setText("One or more search fields are empty.");
+		}
+			else {
 			colFlightNum.setCellValueFactory(new PropertyValueFactory<>("FlightNum"));
 			colDate.setCellValueFactory(new PropertyValueFactory<>("FlightDate"));
 			colDepartureTime.setCellValueFactory(new PropertyValueFactory<>("DepartTime"));
@@ -122,12 +132,12 @@ public class flightsControl extends loginControl implements Initializable {
 			colAirline.setCellValueFactory(new PropertyValueFactory<>("Airline"));
 			colSeatPrice.setCellValueFactory(new PropertyValueFactory<>("SeatPrice"));
 			tableview.setItems(getSearch(date,from,to));
-		
+			}
 		}
 
 	// when see all flights button is clicked it shows list of all flights available
 	public void seeAllFlightsClicked(ActionEvent event) throws Exception {
-		
+		lblflightBooked.setText("");
 		try {
 			
 			Connection con = FlightsData.getConnection();
@@ -153,6 +163,8 @@ public class flightsControl extends loginControl implements Initializable {
 		tableview.setItems(observableList);
 	}
 	
+	//when this method is called it searches through flight database and returns
+	// flights in an observable list based off of user entered criteria
 	public static ObservableList<Flights> getSearch(String date, String from, String to) 
 			throws ClassNotFoundException, SQLException {
 		
@@ -181,6 +193,66 @@ public class flightsControl extends loginControl implements Initializable {
 		return obList;
 	}
 
+	// when my flights button is clicked it takes user to my flights page
+	public void myFlightsBtnClicked(ActionEvent event) throws Exception {
+		Parent register = FXMLLoader.load(getClass().getResource("myBookings.fxml"));
+		Scene registerScene = new Scene(register);	
+		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+		window.setScene(registerScene);
+		window.show();				
+	}
+	
+	// when back to flights button it takes user back to flights page
+	public void backToFlightsBtnClicked(ActionEvent event) throws Exception {
+
+		Parent register = FXMLLoader.load(getClass().getResource("flights.fxml"));
+		Scene registerScene = new Scene(register);
+		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+		window.setScene(registerScene);
+		window.show();
+	}
+
+	public void showMyFlightsBtnClicked(ActionEvent event) throws Exception {
+		
+		Customer customer = new Customer();
+		int id = customer.getCustomerID();
+		
+		PreparedStatement myStmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT flights.flightNum, flights.date, flights.departureTime, "
+				+ "flights.departFrom, flights.arrivalDestination, flights.airline,"
+				+ "flights.seatPrice " + "FROM flights " + 
+				"INNER JOIN bookings ON flights.flightNum = bookings.flightNum and customerID = "
+				+ "'" + id + "'";
+		
+		try {
+			
+			Connection con = FlightsData.getConnection();
+			myStmt = con.prepareStatement(sql);
+			rs = myStmt.executeQuery();
+				
+			while(rs.next()) {
+				observableList.add(new Flights(rs.getString("FlightNum"), rs.getString("date"),
+									rs.getString("departureTime"), rs.getString("departFrom"),
+									rs.getString("arrivalDestination"), rs.getString("airline"),
+									rs.getString("seatPrice")));		
+			}
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		colFlightNum.setCellValueFactory(new PropertyValueFactory<>("FlightNum"));
+		colDate.setCellValueFactory(new PropertyValueFactory<>("FlightDate"));
+		colDepartureTime.setCellValueFactory(new PropertyValueFactory<>("DepartTime"));
+		colDepartFrom.setCellValueFactory(new PropertyValueFactory<>("DepartFrom"));
+		colArrivalTo.setCellValueFactory(new PropertyValueFactory<>("ArrivalTo"));
+		colAirline.setCellValueFactory(new PropertyValueFactory<>("Airline"));
+		colSeatPrice.setCellValueFactory(new PropertyValueFactory<>("SeatPrice"));
+		tableview.setItems(observableList);
+	}
+	
+	
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources ) {
 		

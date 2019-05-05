@@ -37,7 +37,7 @@ public class CustomerData extends FlightsData {
 				
 				return false;
 	}
-	
+	// checks username and security answer 
 	public boolean checkUserName(String user, String securityAnswer) 
 					throws SQLException, ClassNotFoundException {
 		
@@ -184,6 +184,7 @@ public class CustomerData extends FlightsData {
 		return false;
 	}
 	
+	//gets customer id
 	public int custID(String user) throws Exception {
 		
 		int custID = 0;
@@ -212,12 +213,7 @@ public class CustomerData extends FlightsData {
     		}
 		return custID;
 	}
-	
-		
-		
-	
-	
-	
+
 }
 
 

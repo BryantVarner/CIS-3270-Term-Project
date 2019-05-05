@@ -15,7 +15,7 @@ public class FlightsData extends AdminData {
 
 			return myConn;		
 	}
-	
+
 	// adds a flight to flight database
 	public void addFlight(String flightNums, String flightDate, String departTime, 
 						String departFrom, String arrivalTo, String airline, String seatPrices)
@@ -49,7 +49,6 @@ public class FlightsData extends AdminData {
 			
 			}
 	
-	
 	public boolean unique(int customerID, String flightNum) throws SQLException, ClassNotFoundException {
 		
 		Connection myConn = null;
@@ -81,8 +80,7 @@ public class FlightsData extends AdminData {
 			
 			return false;
 }
-
-	
+	// when ever book flights is clicked this method books the flight in bookings database
 	public void book(int customerID, String flightNum) throws SQLException {
 		
 		Connection myConn = null;
@@ -109,12 +107,4 @@ public class FlightsData extends AdminData {
 		     		  }
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-
 }

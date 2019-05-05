@@ -94,8 +94,7 @@ public class manageFlightsControl extends flightsControl implements Initializabl
 			window.setScene(registerScene);
 			window.show();
 		}	
-		
-		
+	
 	// when this button is clicked it takes admin back to admins terminal
 	public void backToAdminTerminalBtnClicked(ActionEvent event) throws Exception {
 					Parent register = FXMLLoader.load(getClass().getResource("adminMain.fxml"));			
@@ -104,8 +103,7 @@ public class manageFlightsControl extends flightsControl implements Initializabl
 					window.setScene(registerScene);
 					window.show();
 				}	
-				
-				
+							
 	public static ObservableList<Flights> getSearch(String date, String from, String to) 
 				throws ClassNotFoundException, SQLException {
 			
