@@ -2,6 +2,7 @@ package UI;
 
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -68,6 +69,8 @@ public class flightsControl extends loginControl implements Initializable {
 	private TextField custArrivalTo;
 	@FXML
 	private Label lblflightBooked;
+	@FXML
+	private Label lblFlightNotSelected;
 	
 	
 	protected String date;
@@ -212,6 +215,7 @@ public class flightsControl extends loginControl implements Initializable {
 		window.show();
 	}
 
+	// when show my flight button is clicked the users currently booked flights are shown
 	public void showMyFlightsBtnClicked(ActionEvent event) throws Exception {
 		
 		Customer customer = new Customer();
@@ -251,7 +255,25 @@ public class flightsControl extends loginControl implements Initializable {
 		tableview.setItems(observableList);
 	}
 	
-	
+	public void deleteMyFlightBtnClicked(ActionEvent event) throws Exception {
+		
+		Flights flight = tableview.getSelectionModel().getSelectedItem();
+		
+		if(flight == null) {
+			lblFlightNotSelected.setText("Please select a flight first.");
+		}
+		
+		else {
+			
+			String data = flight.getFlightNum();
+			Customer customer = new Customer();
+			int id = customer.getCustomerID();
+			deleteBook(id,data);
+			// display flight deleted press show my flights again to refresh.
+			lblFlightNotSelected.setText("Flight deleted.");
+					
+		}
+	}
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources ) {

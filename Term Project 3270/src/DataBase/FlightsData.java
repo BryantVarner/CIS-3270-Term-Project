@@ -106,5 +106,26 @@ public class FlightsData extends AdminData {
 		 			    myConn.close();
 		     		  }
 	}
+	//when user presses delete flight this method is called and deletes the flight from bookings
+	public void deleteBook(int customerID, String flightNum) throws SQLException {
+		
+		Connection myConn = null;
+		PreparedStatement myStmt = null;
+		String sql = "delete from bookings where customerID = " + "'" + customerID + "'" 
+				+ "and flightNum = " + "'" + flightNum + "'";
+	
+			try {
+			    myConn = DriverManager.getConnection
+			      ("jdbc:mysql://localhost/airlinereservation" , "root" , "nodummies12345");
+			    myStmt = myConn.prepareStatement(sql);
+			    myStmt.executeUpdate();
+		 	}
+		   catch(Exception ex) {
+			   	 ex.printStackTrace();
+		 	}
+			finally {
+		 			myConn.close();
+		    }
+	}
 	
 }
