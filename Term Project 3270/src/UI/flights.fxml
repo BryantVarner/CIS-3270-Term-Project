@@ -13,7 +13,7 @@
 
 <AnchorPane accessibleRole="MENU_BUTTON" prefHeight="537.0" prefWidth="670.0" style="-fx-background-color: #344755;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.flightsControl">
    <children>
-      <Button layoutX="391.0" layoutY="128.0" mnemonicParsing="false" onAction="#searchBtnClicked" prefHeight="77.0" prefWidth="94.0" style="-fx-background-color: BF745F;" textFill="WHITE">
+      <Button layoutX="391.0" layoutY="118.0" mnemonicParsing="false" onAction="#searchBtnClicked" prefHeight="77.0" prefWidth="94.0" style="-fx-background-color: BF745F;" textFill="WHITE">
          <graphic>
             <ImageView fitHeight="51.0" fitWidth="71.0">
                <image>
@@ -101,7 +101,7 @@
          </graphic>
       </Button>
       <Button layoutX="517.0" layoutY="487.0" mnemonicParsing="false" onAction="#seeAllFlightsClicked" prefHeight="25.0" prefWidth="131.0" style="-fx-background-color: BF745F;" text="See all flights" />
-      <Label fx:id="lblflightBooked" layoutX="391.0" layoutY="212.0" prefHeight="20.0" prefWidth="258.0" textFill="WHITE">
+      <Label fx:id="lblflightBooked" layoutX="357.0" layoutY="198.0" prefHeight="29.0" prefWidth="312.0" textFill="WHITE" wrapText="true">
          <font>
             <Font size="14.0" />
          </font></Label>
