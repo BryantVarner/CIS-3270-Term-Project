@@ -94,11 +94,15 @@ public class flightsControl extends loginControl implements Initializable {
 		lblflightBooked.setText("");
 		
 		Flights data = tableview.getSelectionModel().getSelectedItem();
+		Flights date = tableview.getSelectionModel().getSelectedItem();
+		Flights time = tableview.getSelectionModel().getSelectedItem();
 		if(data == null) {
 			lblflightBooked.setText("Please select a flight first.");
 		}
 			else {
 			String flight = data.getFlightNum();
+			String flightDate = date.getFlightDate();
+			String flightTime = time.getDepartTime();
 			Customer customer = new Customer();
 			int id = customer.getCustomerID();
 			
@@ -107,9 +111,21 @@ public class flightsControl extends loginControl implements Initializable {
 					lblflightBooked.setText("You already have flight " + flight + " booked.");
 				}
 					else {	
-						//book flight
-						book(id,flight);
-						lblflightBooked.setText("Flight " + flight + " is now booked.");
+						if(flightFull(flight)) {
+							lblflightBooked.setText("Sorry flight is full.");
+							
+						}
+						else {
+							if(flightTimeConflict(flightDate, flightTime)) {
+								lblflightBooked.setText("You already have a flight scheduled at this time.");
+							}
+							
+							else {
+								//book flight
+								book(id,flight);
+								lblflightBooked.setText("Flight " + flight + " is now booked.");
+							}
+						}
 					}
 			}
 	}
@@ -264,14 +280,12 @@ public class flightsControl extends loginControl implements Initializable {
 		}
 		
 		else {
-			
 			String data = flight.getFlightNum();
 			Customer customer = new Customer();
 			int id = customer.getCustomerID();
 			deleteBook(id,data);
 			// display flight deleted press show my flights again to refresh.
-			lblFlightNotSelected.setText("Flight deleted.");
-					
+			lblFlightNotSelected.setText("Flight deleted.");			
 		}
 	}
 	

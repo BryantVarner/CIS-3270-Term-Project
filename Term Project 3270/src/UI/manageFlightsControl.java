@@ -63,7 +63,6 @@ public class manageFlightsControl extends flightsControl implements Initializabl
 	@FXML
 	private Label lblDelete;
 	
-	
 	ObservableList<Flights> observableList = FXCollections.observableArrayList();
 	
 	
@@ -167,7 +166,8 @@ public class manageFlightsControl extends flightsControl implements Initializabl
 			}
 		}
 	}
-		@Override
+		
+	@Override
 	public void initialize(URL location, ResourceBundle resources ) {
 				
 			try {

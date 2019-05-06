@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import Business_Logic.Customer;
+import Business_Logic.Flights;
+
 public class FlightsData extends AdminData {
 	
 	public static Connection getConnection() throws SQLException {
@@ -79,7 +82,7 @@ public class FlightsData extends AdminData {
     		  }
 			
 			return false;
-}
+	}
 	// when ever book flights is clicked this method books the flight in bookings database
 	public void book(int customerID, String flightNum) throws SQLException {
 		
@@ -125,5 +128,72 @@ public class FlightsData extends AdminData {
 		 			myConn.close();
 		    }
 	}
-	
+
+	// when user presses book flight button this method is called and sees if flight is fully
+	// booked or not and returns boolean.
+	public boolean flightFull(String flightNum) throws SQLException {
+		
+		int count = 1;
+		Connection myConn = null;
+		PreparedStatement myStmt = null;
+		ResultSet myRs = null;
+		String sql = "select * from bookings where flightNum = ? ";
+		
+			try {
+		    myConn = DriverManager.getConnection
+		      ("jdbc:mysql://localhost/airlinereservation" , "root" , "nodummies12345");
+		    myStmt = myConn.prepareStatement(sql);
+		    myStmt.setString(1, flightNum);
+		    myRs = myStmt.executeQuery();
+		    
+		    if (myRs.next()) {
+		    	count++;
+		    }
+		    
+		    if (count == 6) {
+		    	return true;
+		    }
+		    else 
+		    	return false;
+			}
+			
+		    catch(Exception ex) {
+				ex.printStackTrace();
+			}
+			finally {
+			    myConn.close();
+    		}
+		return true;
+	}
+
+	// when user clicks book flight button this method is called and sees if they have a time
+	// conflict and returns boolean
+	public boolean flightTimeConflict(String date, String time) {
+		
+		Customer customer = new Customer();
+		int id = customer.getCustomerID();
+		
+		PreparedStatement myStmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT flights.date, flights.departureTime FROM flights " + 
+				"INNER JOIN bookings ON flights.flightNum = bookings.flightNum and customerID = "
+				+ "'" + id + "'" + "and flights.date = " + "'" + date + "'" + 
+				"and flights.departureTime =" + "'" + time + "'";
+		
+		try {
+			Connection con = FlightsData.getConnection();
+			myStmt = con.prepareStatement(sql);
+			rs = myStmt.executeQuery();
+				
+			while(rs.next()) {
+				return true;	
+			}
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return false;
+	}
+
+
 }
